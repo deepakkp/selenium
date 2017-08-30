@@ -1,8 +1,16 @@
 package CrmTest1;
 
+
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +25,7 @@ import package1.AlertLib;
 
 public class Login {
   @Test
-  public void f() throws InterruptedException {
+  public void f() throws InterruptedException, AWTException {
 	  FirefoxProfile ffprofile = new FirefoxProfile();
 	  ffprofile.setPreference("dom.webnotifications.enabled", false);
 	  //WebDriver driver = new FirefoxDriver();
@@ -35,16 +43,48 @@ public class Login {
        alert.accept();
        
     }
+   Thread.sleep(10000);
+   if(IsAlertPresent(d))
+   {
+	   Alert alert = d.switchTo().alert();
+	   System.out.println(alert.getText());
+       alert.accept();
+       
+    }
    d.findElement(By.xpath("//input[@id='searchtb']")).sendKeys("con");
    d.findElement(By.xpath("//div/ol/li/label[contains(text(),'con+Int_4pane_conversiontab_test')]")).click();
 
- //Actions   
- Actions act=new Actions(d);
-WebElement ele=d.findElement(By.xpath("[@id='ottv3tv']/li[1]"));
-// //ul[@id='ottv3tv']/li[contains(text(),'New')]
-// //ul[@id='ottv3tv']/li[1]
-act.moveToElement(ele).build().perform();
-Thread.sleep(15000);
+  
+   
+  // Robot class for Mouse hover
+   
+  d.findElement(By.xpath("//div/span[contains(text(),'con+Int_4pane_conversiontab_test')]")).click();;
+   
+  /* Point p = ele1.getLocation();
+   int x=p.getX();
+   int y=p.getY();
+   Dimension d1=ele1.getSize();
+   int h=d1.getWidth();
+   int w=d1.getHeight();
+   Robot r=new Robot();
+   r.mouseMove(x+(w/2), y+(h/2)+ 80); */
+  
+   Thread.sleep(10000);
+   
+   Robot r=new Robot();
+   r.keyPress(KeyEvent.VK_CONTROL);
+   r.keyPress(KeyEvent.VK_ALT);
+   r.keyPress(KeyEvent.VK_N);
+   
+   r.keyRelease(KeyEvent.VK_CONTROL);
+   r.keyRelease(KeyEvent.VK_ALT);
+   r.keyRelease(KeyEvent.VK_N);
+   
+   d.findElement(By.xpath("")).click();
+   
+   Thread.sleep(10000);
+   
+   
 
 
 
